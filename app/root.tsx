@@ -13,12 +13,11 @@ import type { MetaFunction } from "remix";
 
 import { useRef, useEffect } from "react";
 
-import * as Fathom from "fathom-client";
-
 import styles from "~/styles/importer.css";
 
 import Header from "~/components/Header";
 import Footer from "~/components/Footer";
+import Fathom from "./components/Utils/fathom";
 
 export const meta: MetaFunction = () => {
   return { title: "FastAPI and Remix Jobs" };
@@ -38,28 +37,7 @@ export const loader = async () => {
   });
 }
 
-export const onRouteChangeComplete = async (data: any) => {
-  let fathomLoaded = useRef(false);
-  let location = useLocation();
-
-  useEffect(
-    function setupFathom() {
-      if (!fathomLoaded.current) {
-        Fathom.load(data.ENV.FATHOM_ID, {
-          url: data.ENV.FATHOM_URL
-        });
-        fathomLoaded.current = true;
-      } else {
-        Fathom.trackPageview();
-      }
-    },
-    [location]
-  );
-};
-
 export default function App() {
-  // const data = useLoaderData();
-  // onRouteChangeComplete(data);
   
   return (
     <html lang="en">
@@ -80,23 +58,7 @@ export default function App() {
           <ScrollRestoration />
           <Scripts />
           <LiveReload />
-          <script
-            async
-            dangerouslySetInnerHTML={{
-              __html: `
-              (function(f, a, t, h, o, m){
-                a[h]=a[h]||function(){
-                  (a[h].q=a[h].q||[]).push(arguments)
-                };
-                o=f.createElement('script'),
-                m=f.getElementsByTagName('script')[0];
-                o.async=1; o.src=t; o.id='fathom-script';
-                m.parentNode.insertBefore(o,m)
-              })(document, window, '//stats.suprememvp.com/tracker.js', 'fathom');
-              fathom('set', 'siteId', 'PGTWS');
-              fathom('trackPageview');`
-            }}
-          />
+          <Fathom />
         </div>
       </body>
     </html>
