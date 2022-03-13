@@ -1,5 +1,4 @@
 export default function Fathom(props: any) {
-  console.log('props', props);
   return (
     <>
         {
