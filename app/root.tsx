@@ -44,10 +44,9 @@ export const onRouteChangeComplete = async (data: any) => {
 
   useEffect(
     function setupFathom() {
-      console.log('fathomLoaded', fathomLoaded);
       if (!fathomLoaded.current) {
         Fathom.load(data.ENV.FATHOM_ID, {
-          includedDomains: [`${data.ENV.FATHOM_INCLUDED_DOMAIN}`]
+          url: data.ENV.FATHOM_URL
         });
         fathomLoaded.current = true;
       } else {
@@ -59,8 +58,8 @@ export const onRouteChangeComplete = async (data: any) => {
 };
 
 export default function App() {
-  const data = useLoaderData();
-  onRouteChangeComplete(data);
+  // const data = useLoaderData();
+  // onRouteChangeComplete(data);
   
   return (
     <html lang="en">
@@ -81,6 +80,24 @@ export default function App() {
           <ScrollRestoration />
           <Scripts />
           <LiveReload />
+          <script
+            async
+            dangerouslySetInnerHTML={{
+              __html: `<script>
+              (function(f, a, t, h, o, m){
+                a[h]=a[h]||function(){
+                  (a[h].q=a[h].q||[]).push(arguments)
+                };
+                o=f.createElement('script'),
+                m=f.getElementsByTagName('script')[0];
+                o.async=1; o.src=t; o.id='fathom-script';
+                m.parentNode.insertBefore(o,m)
+              })(document, window, '//stats.suprememvp.com/tracker.js', 'fathom');
+              fathom('set', 'siteId', 'PGTWS');
+              fathom('trackPageview');
+              </script>`
+            }}
+          />
         </div>
       </body>
     </html>

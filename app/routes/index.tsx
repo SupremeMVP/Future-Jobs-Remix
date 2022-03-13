@@ -6,10 +6,10 @@ import type { Companies } from "~/company";
 
 import CompanyCard from '~/components/Features/Company/Card';
 
-
 export const loader = async () => {
   return json(await getCompanies())
 }
+
 export default function Header() {
   const companies = useLoaderData<Companies>();
   return (
