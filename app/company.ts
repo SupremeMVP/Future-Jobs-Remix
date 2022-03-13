@@ -23,12 +23,32 @@ export type Companies = {
 }
 
 export async function getCompanies() {
-  const res = await fetch(`${process.env.FAJOBS_ENDPOINT}/companies/`);
+  const res = await fetch(`${process.env.FAJOBS_ENDPOINT}/companies/`,
+  {
+    method: 'GET',
+    mode: 'same-origin',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: { 
+      'Content-Type': 'application/json',
+      'X-API-Key': `${process.env.FAJOBS_API_KEY}`
+    },
+  });
   return res.json();
 }
 
 export async function getCompany(key: string) {
-  const res = await fetch(`${process.env.FAJOBS_ENDPOINT}/company/${key}`);
+  const res = await fetch(`${process.env.FAJOBS_ENDPOINT}/company/${key}`,
+  {
+    method: 'GET',
+    mode: 'same-origin',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: { 
+      'Content-Type': 'application/json',
+      'X-API-Key': `${process.env.FAJOBS_API_KEY}`
+    },
+  });
   return res.json();
 }
 
@@ -39,7 +59,8 @@ export async function createCompany(companyData: any) {
     cache: 'no-cache',
     credentials: 'same-origin',
     headers: { 
-      'Content-Type': 'application/json' 
+      'Content-Type': 'application/json',
+      'X-API-Key': `${process.env.FAJOBS_API_KEY}`
     },
     body: JSON.stringify(companyData)
   });
