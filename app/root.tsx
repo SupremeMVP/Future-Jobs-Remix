@@ -7,7 +7,7 @@ import {
   ScrollRestoration,
   useLocation,
   json,
-  useLoaderData
+  useLoaderData,
 } from "remix";
 import type { MetaFunction } from "remix";
 
@@ -44,10 +44,10 @@ export const onRouteChangeComplete = async (data: any) => {
 
   useEffect(
     function setupFathom() {
+      console.log('fathomLoaded', fathomLoaded);
       if (!fathomLoaded.current) {
-        Fathom.load(`${data.ENV.FATHOM_ID}`, {
-          includedDomains: [`${data.ENV.FATHOM_INCLUDED_DOMAIN}`],
-          url: `${data.ENV.FATHOM_URL}`
+        Fathom.load(data.ENV.FATHOM_ID, {
+          includedDomains: [`${data.ENV.FATHOM_INCLUDED_DOMAIN}`]
         });
         fathomLoaded.current = true;
       } else {
@@ -57,7 +57,6 @@ export const onRouteChangeComplete = async (data: any) => {
     [location]
   );
 };
-
 
 export default function App() {
   const data = useLoaderData();
