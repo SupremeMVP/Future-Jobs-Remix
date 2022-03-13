@@ -83,7 +83,7 @@ export default function App() {
           <script
             async
             dangerouslySetInnerHTML={{
-              __html: `<script>
+              __html: `
               (function(f, a, t, h, o, m){
                 a[h]=a[h]||function(){
                   (a[h].q=a[h].q||[]).push(arguments)
@@ -94,8 +94,7 @@ export default function App() {
                 m.parentNode.insertBefore(o,m)
               })(document, window, '//stats.suprememvp.com/tracker.js', 'fathom');
               fathom('set', 'siteId', 'PGTWS');
-              fathom('trackPageview');
-              </script>`
+              fathom('trackPageview');`
             }}
           />
         </div>
