@@ -4,14 +4,9 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration,
-  useLocation,
-  json,
-  useLoaderData,
+  ScrollRestoration
 } from "remix";
 import type { MetaFunction } from "remix";
-
-import { useRef, useEffect } from "react";
 
 import styles from "~/styles/importer.css";
 
@@ -27,18 +22,7 @@ export function links() {
   return [{ rel: "stylesheet", href: styles }];
 };
 
-export const loader = async () => {
-  return json({
-    ENV: {
-      FATHOM_ID: process.env.FATHOM_ID,
-      FATHOM_INCLUDED_DOMAIN: process.env.FATHOM_INCLUDED_DOMAIN,
-      FATHOM_URL: process.env.FATHOM_URL,
-    },
-  });
-}
-
 export default function App() {
-  
   return (
     <html lang="en">
       <head>
