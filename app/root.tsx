@@ -4,7 +4,9 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration
+  ScrollRestoration,
+  json,
+  useLoaderData,
 } from "remix";
 import type { MetaFunction } from "remix";
 
@@ -22,7 +24,19 @@ export function links() {
   return [{ rel: "stylesheet", href: styles }];
 };
 
+export const loader = async () => {
+  return json({
+    ENV: {
+      FATHOM_ID: process.env.FATHOM_ID,
+      FATHOM_INCLUDED_DOMAIN: process.env.FATHOM_INCLUDED_DOMAIN,
+      FATHOM_URL: process.env.FATHOM_URL,
+    },
+  });
+}
+
 export default function App() {
+  const data = useLoaderData();
+  
   return (
     <html lang="en">
       <head>
@@ -42,7 +56,7 @@ export default function App() {
           <ScrollRestoration />
           <Scripts />
           <LiveReload />
-          <Fathom />
+          <Fathom data={data} />
         </div>
       </body>
     </html>
